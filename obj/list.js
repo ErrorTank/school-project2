@@ -1,4 +1,3 @@
-
 var fs = require("fs");
 var path = require("path");
 
@@ -20,65 +19,55 @@ class UniversityList {
     }
     var endData = data.slice(0, data.length - 1).split("\n");
 
-    function tranform(item) {
-      return JSON.parse(item);
-    }
 
-    var tranform = endData.map(tranform);
-    return tranform;
+    return endData.map(item => JSON.parse(item));
   }
 
   find(type, value) {
     var list = this.get();
 
-    function finding(item) {
-      return item[type].toString().indexOf(value.toString()) > -1;
-    }
+    return list.filter(item => item[type].toString().indexOf(value.toString()) > -1);
+  }
 
-    var found = list.filter(finding);
-
-    return found;
+  findByName(keyword){
+    var list = this.get();
+    var lc = keyword.toLowerCase();
+    return list.filter(item => item.name.toLowerCase().includes(lc) || item.fullName.toLowerCase().includes(lc));
   }
 
   update(id, value) {
 
     var list = this.list;
-
-    function returnid(item) {
-      return item.id;
-    }
-
-    var no = list.map(returnid).indexOf(Number(id));
     value.id = id;
-    this.list.splice(no, 1, value);
-    console.log(this.list)
-    function savedata(result, item) {
+    this.list.splice(list.map(item => item.id).indexOf(Number(id)), 1, value);
+
+    function saveData(result, item) {
       return result + JSON.stringify(item) + "\n";
     }
 
-    var dataToSave = this.list.reduce(savedata, "");
+    var dataToSave = this.list.reduce(saveData, "");
     fs.writeFileSync(path.join(__dirname, "../data/data.txt"), dataToSave, "utf-8");
   }
 
   delete(id) {
     var list = this.list;
 
-    function returnid(item) {
+    function returnId(item) {
       return item.id;
     }
 
-    var no = list.map(returnid).indexOf(id);
+    var no = list.map(returnId).indexOf(id);
     this.list.splice(no, 1);
 
-    function savedata(result, item) {
+    function saveData(result, item) {
       return result + JSON.stringify(item) + "\n";
     }
 
-    var dataToSave = this.list.reduce(savedata, "");
+    var dataToSave = this.list.reduce(saveData, "");
     fs.writeFileSync(path.join(__dirname, "../data/data.txt"), dataToSave, "utf-8");
   }
 
-  findbyyear(number) {
+  findByYear(number) {
     var list = this.list;
     var no = list.filter(function (item) {
       return (2018 - Number(item.year.split("/")[2])) >= number;

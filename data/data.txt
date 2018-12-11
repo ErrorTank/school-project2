@@ -1,4 +1,5 @@
-{"name":"TLU","fullName":"Thang Long","year":"12/01/1989","address":"Nguyen Xien 4","id":6439}
-{"name":"DHCD","fullName":"Cong Doan","year":"30/10/1985","address":"Tay Son 3","id":2323}
-{"name":"PTIT","fullName":"Hoc Vien Buu Chinh Vien Thong","address":"Nguyen Trai","year":"12/5/1980","id":5136}
-{"name":"TMU","fullName":"Thuong mai","year":"11/01/2000","address":"Ho Tung Mau","id":977}
+{"name":"TLU","fullName":"Thang long University","year":"12/01/1998","address":"Nguyen Xien","id":7170}
+{"name":"WRU","fullName":"Thuy Loi University","address":"Tay Son","year":"05/06/1918","id":9313}
+{"name":"FTU","fullName":"Ngoai Thuong University","address":"Chua Lang","year":"19/02/1952","id":1039}
+{"name":"NEU","fullName":"Dai hoc kinh te quoc dan","year":"30/11/1975","address":"Giai Phong","id":2946}
+{"name":"VCU","fullName":"Dai hoc thuong mai","address":"Ho Tung Mau","year":"12/01/1950","id":5079}

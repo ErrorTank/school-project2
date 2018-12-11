@@ -23,16 +23,20 @@ class App extends Component {
     let {name, year, searchType} = this.state;
     if(searchType === 0){
       axios.post("/api/by-name", {name}).then(res => {
-        console.log(res)
         this.setState({list: res.data})
       })
 
     }else{
       axios.post("/api/by-year", {year}).then(res => {
-        console.log(res)
         this.setState({list: res.data})
       })
     }
+  };
+
+  handleDelete = (uID) => {
+    axios.delete("/api/delete/"+uID).then(() => {
+      this.setState({list: this.state.list.filter(each => each.id !== uID)})
+    })
   };
 
   render() {
@@ -108,10 +112,11 @@ class App extends Component {
             <th>Full name</th>
             <th>Year</th>
             <th>Address</th>
+            <th></th>
           </tr>
           </thead>
           <tbody>
-          {list.map((u) => (
+          {list.length ? list.map((u) => (
             <tr key={u.id}
                 className="each-u"
                 onClick={e => browserHistory.push("/edit/"+u.id)}
@@ -120,8 +125,24 @@ class App extends Component {
               <td>{u.fullName}</td>
               <td>{u.year}</td>
               <td>{u.address}</td>
+              <td>
+                <button className="btn btn-danger text-white"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          this.handleDelete(u.id)
+                        }}
+                >
+                  Delete
+                </button>
+              </td>
             </tr>
-          ))}
+          )): (
+            <tr >
+              <p className="text-dark text-left pl-2">
+                No data
+              </p>
+            </tr>
+          )}
           </tbody>
 
         </table>

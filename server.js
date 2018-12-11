@@ -12,9 +12,10 @@ app.get('/api/list', (req, res) => {
   let list = uList.get();
   res.json(list);
 });
+
 app.post('/api/by-name', (req, res) => {
   console.log(req.body.name);
-  let list = uList.find("name",req.body.name);
+  let list = uList.findByName(req.body.name);
   res.json(list);
 });
 
@@ -40,8 +41,13 @@ app.post('/api/add-new', (req, res) => {
 
 app.post('/api/by-year', (req, res) => {
   console.log(req.body);
-  let list = uList.findbyyear(req.body.year);
+  let list = uList.findByYear(req.body.year);
   res.json(list);
+});
+
+app.delete('/api/delete/:uID', (req, res) => {
+  uList.delete(Number(req.params.uID));
+  res.status(200).end();
 });
 
 app.listen(port, () => console.log(`Listening on port ${port}`));
